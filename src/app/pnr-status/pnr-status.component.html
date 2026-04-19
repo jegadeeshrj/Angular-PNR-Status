@@ -1,0 +1,81 @@
+<div class="pnr-page">
+  <div class="pnr-wrapper">
+
+    <h1 class="title">🚆 PNR Status</h1>
+    <p class="subtitle">Check your train ticket confirmation status instantly</p>
+
+    <form [formGroup]="pnrForm" (ngSubmit)="searchPnr()" class="search-box">
+      <input
+        type="text"
+        placeholder="Enter 10-digit PNR Number"
+        formControlName="pnr"
+      />
+      <button type="submit" [disabled]="pnrForm.invalid || loading">
+        {{ loading ? 'Checking...' : 'Search' }}
+      </button>
+    </form>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <div class="pnr-card" *ngIf="pnrData">
+
+      <div class="train-header">
+        <h2>{{ pnrData.trainName }}</h2>
+        <span class="train-number">Train No. {{ pnrData.trainNumber }}</span>
+      </div>
+
+      <div class="journey-grid">
+        <div class="info-box">
+          <label>Journey Date</label>
+          <span>{{ pnrData.dateOfJourney }}</span>
+        </div>
+
+        <div class="info-box">
+          <label>From</label>
+          <span>{{ pnrData.sourceStation }}</span>
+        </div>
+
+        <div class="info-box">
+          <label>To</label>
+          <span>{{ pnrData.destinationStation }}</span>
+        </div>
+
+        <div class="info-box">
+          <label>Class</label>
+          <span>{{ pnrData.journeyClass }}</span>
+        </div>
+      </div>
+
+      <div class="chart-status">
+        <label>Chart Status:</label>
+        <span class="status-badge">{{ pnrData.chartStatus }}</span>
+      </div>
+
+      <h3 class="section-title">Passenger Status</h3>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Booking Status</th>
+              <th>Current Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let passenger of pnrData.passengerList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <span class="booking">{{ passenger.bookingStatusDetails }}</span>
+              </td>
+              <td>
+                <span class="current">{{ passenger.currentStatusDetails }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

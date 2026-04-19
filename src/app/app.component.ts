@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { PnrStatusComponent } from './pnr-status/pnr-status.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [PnrStatusComponent],
+  template: `<app-pnr-status></app-pnr-status>`
 })
-export class AppComponent {
-  title = 'Angular-PNR-Status';
-}
+export class AppComponent {}
